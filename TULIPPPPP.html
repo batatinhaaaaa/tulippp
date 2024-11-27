@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Flores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f7ee;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #6b8e23;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="text"] {
+            background-color: #f8fce7;
+        }
+
+        .checkbox-group, .radio-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        input[type="checkbox"], input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .submit-button {
+            background-color: #6b8e23;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #556b2f;
+        }
+
+        .view-flowers-button {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #6b8e23;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .view-flowers-button:hover {
+            background-color: #556b2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Flores</h1>
+        <form id="flowerForm">
+            <label for="nome">Nome da Flor:</label>
+            <input type="text" id="nome" name="nome" placeholder="Ex: Rosa" required>
+
+            <label for="cor">Cor:</label>
+            <input type="text" id="cor" name="cor" placeholder="Ex: Vermelho" required>
+
+            <label for="foto">Link da Foto:</label>
+            <input type="text" id="foto" name="foto" placeholder="Insira o link da foto da flor" required>
+
+            <label>Tempo de Floração (Escolha as estações):</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="floracao" value="verao"> Verão</label>
+                <label><input type="checkbox" name="floracao" value="outono"> Outono</label>
+                <label><input type="checkbox" name="floracao" value="inverno"> Inverno</label>
+                <label><input type="checkbox" name="floracao" value="primavera"> Primavera</label>
+            </div>
+
+            <label>É Perfumada:</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="perfumada"> Sim</label>
+            </div>
+
+            <label>Tamanho:</label>
+            <div class="radio-group">
+                <label><input type="radio" name="tamanho" value="pequena" required> Pequena</label>
+                <label><input type="radio" name="tamanho" value="media"> Média</label>
+                <label><input type="radio" name="tamanho" value="grande"> Grande</label>
+            </div>
+
+            <label for="uso">Uso:</label>
+            <input type="text" id="uso" name="uso" placeholder="Ex: Jardins, Decoração" required>
+
+            <input type="submit" class="submit-button" value="Cadastrar">
+        </form>
+
+        <!-- Link para ver flores cadastradas -->
+        <a href="pagina_de_flores.html" class="view-flowers-button">Ver Flores Registradas</a>
+    </div>
+
+    <script>
+        // Função para salvar a flor no localStorage
+        function saveFlower(event) {
+            event.preventDefault(); // Evita o envio do formulário
+
+            // Coleta os dados do formulário
+            const nome = document.getElementById('nome').value;
+            const cor = document.getElementById('cor').value;
+            const foto = document.getElementById('foto').value;
+            const floracao = Array.from(document.querySelectorAll('input[name="floracao"]:checked')).map(input => input.value);
+            const perfumada = document.querySelector('input[name="perfumada"]:checked') !== null;
+            const tamanho = document.querySelector('input[name="tamanho"]:checked').value;
+            const uso = document.getElementById('uso').value;
+
+            // Cria o objeto da flor
+            const flower = {
+                nome,
+                cor,
+                foto,
+                floracao,
+                perfumada,
+                tamanho,
+                uso
+            };
+
+            // Recupera o array de flores do localStorage (ou cria um novo array vazio)
+            let flowers = JSON.parse(localStorage.getItem('flowers')) || [];
+            flowers.push(flower);
+
+            // Salva o array de flores no localStorage
+            localStorage.setItem('flowers', JSON.stringify(flowers));
+
+            // Limpa o formulário após o cadastro
+            document.getElementById('flowerForm').reset();
+            alert('Flor cadastrada com sucesso!');
+
+            // Redireciona para o próximo site após o cadastro
+            window.location.href = 'rrererfv.html';
+        }
+
+        // Adiciona o evento de envio do formulário
+        document.getElementById('flowerForm').addEventListener('submit', saveFlower);
+    </script>
+</body>
+</html>
+
